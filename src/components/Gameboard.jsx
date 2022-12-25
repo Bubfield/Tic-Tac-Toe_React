@@ -1,5 +1,5 @@
 import React from "react";
-import { useLayoutEffect, useRef } from "react";
+import { useEffect } from "react";
 import Win from "./Win";
 
 const Gameboard = ({ props }) => {
@@ -21,12 +21,12 @@ const Gameboard = ({ props }) => {
     setAIFirstMove,
   } = props;
 
-  const firstUpdate = useRef(true);
-  useLayoutEffect(() => {
-    if (firstUpdate.current) {
+  //const firstUpdate = useRef(true);
+  useEffect(() => {
+    /*if (firstUpdate.current) {
       firstUpdate.current = false;
       return;
-    }
+    }*/
 
     function ultimate(num1, num2, num3) {
       if (num1 && num2 && num3 && num1 === num2 && num1 === num3) {
