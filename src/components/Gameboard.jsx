@@ -1,5 +1,5 @@
 import React from "react";
-import { useLayoutEffect, useRef } from "react";
+import { useEffect } from "react";
 import Win from "./Win";
 import { checkIfWinOrDraw } from "../functions/checkIfWinOrDraw";
 import { gameBoardDisplay } from "../functions/gameBoardDisplay";
@@ -25,13 +25,7 @@ const Gameboard = ({ props }) => {
     setAIFirstMove,
   } = props;
 
-  const firstUpdate = useRef(true);
-  useLayoutEffect(() => {
-    if (firstUpdate.current) {
-      firstUpdate.current = false;
-      return;
-    }
-
+  useEffect(() => {
     /*if AI is X && no squares are occupied, 
     this means we are on the first move, 
     and that the AI gets to make the first move*/
