@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
-import Win from "./Win";
+import WinOrDraw from "./WinOrDraw";
 import { checkIfWinOrDraw } from "../functions/checkIfWinOrDraw";
 import { gameBoardDisplay } from "../functions/gameBoardDisplay";
 import RenderGameBoardSquares from "./RenderGameBoardSquares";
@@ -77,7 +77,7 @@ const Gameboard = ({ props }) => {
           AI,
         }}
       />
-      <Win props={{ winner, draw }} />
+      <WinOrDraw props={{ winner, draw }} />
     </>
   );
 };

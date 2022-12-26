@@ -1,6 +1,6 @@
 import React from "react";
 
-const Win = ({ props }) => {
+const WinOrDraw = ({ props }) => {
   const { winner, draw } = props;
   return (
     <div className="win">
@@ -9,4 +9,4 @@ const Win = ({ props }) => {
   );
 };
 
-export default Win;
+export default WinOrDraw;

@@ -24,18 +24,27 @@ const UpdateSquaresArrayAndMakeMoves = (
   let randomIndex = copyOfSquaredOccupiedArray[randomNum];
 
   setTimeout(() => {
-    /*if the Win component is not shown, then AI can make a move.
-      used to stop the AI from making moves if the game is over*/
     let win = document.querySelector(".win");
-    if (win.style.display !== "flex") {
-      setAIMoveInProgress(false);
-      //AI makes its move
-      document.getElementById(randomIndex).textContent = AI;
-      //copy of squares array and squares array are both updated
-      copyOfSquaredOccupiedArray = copyOfSquaredOccupiedArray.filter(
-        (elem) => elem !== randomIndex
-      );
-      setSquaresOccupied(copyOfSquaredOccupiedArray);
+    /*makes sure win exists before executing next if statement
+    this is to stop error of when pressing the reset button
+    immediately after making a move, the AI still 
+    tries to make a move, causing an error
+    because it tries to grab win.style.display, but win
+    does not exist*/
+    if (win) {
+      /*if the Win component's style does not equal flex, this 
+      means the gameboard is displayed which means the AI can make a move.
+      used to stop the AI from making moves if the game is over*/
+      if (win.style.display !== "flex") {
+        setAIMoveInProgress(false);
+        //AI makes its move
+        document.getElementById(randomIndex).textContent = AI;
+        //copy of squares array and squares array are both updated
+        copyOfSquaredOccupiedArray = copyOfSquaredOccupiedArray.filter(
+          (elem) => elem !== randomIndex
+        );
+        setSquaresOccupied(copyOfSquaredOccupiedArray);
+      }
     }
   }, 2000);
 };
