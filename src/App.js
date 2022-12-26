@@ -1,12 +1,16 @@
 import { useState } from "react";
 import Gameboard from "./components/Gameboard";
+import Note from "./components/Note";
+import RestartButton from "./components/RestartButton";
+import WhatIsNameInputAndStartButton from "./components/WhatIsNameInputAndStartButton";
+import ChooseXorO from "./components/ChooseXorO";
+import TicTacToe from "./components/TicTacToe";
 
 function App() {
   const [player, setPlayer] = useState("");
   const [startGame, setStartGame] = useState(false);
   const [playerName, setPlayerName] = useState("");
   const [squaresOccupied, setSquaresOccupied] = useState([
-    "0",
     "1",
     "2",
     "3",
@@ -15,39 +19,24 @@ function App() {
     "6",
     "7",
     "8",
+    "9",
   ]);
   const [win, setWin] = useState(false);
   const [AI, setAI] = useState("");
   const [winner, setWinner] = useState("");
-  const [test, setTest] = useState(false);
+  const [AIMoveInProgress, setAIMoveInProgress] = useState(false);
   const [draw, setDraw] = useState(false);
   const [AIFirstMove, setAIFirstMove] = useState(false);
 
-  const handlePlayer = (e) => {
-    let text = e.target.textContent;
-    setPlayer(text);
-    if (text === "X") {
-      setAI("O");
-    } else if (text === "O") {
-      setAI("X");
-    }
-  };
-
-  const handleStartGame = (e) => {
-    e.preventDefault();
-    if (player && playerName) {
-      setStartGame(true);
-    }
-  };
-
+  //reset all state variables
   const handleRestart = () => {
     setPlayer("");
     setStartGame(false);
     setPlayerName("");
-    setSquaresOccupied(["0", "1", "2", "3", "4", "5", "6", "7", "8"]);
+    setSquaresOccupied(["1", "2", "3", "4", "5", "6", "7", "8", "9"]);
     setWin(false);
     setAI("");
-    setTest(false);
+    setAIMoveInProgress(false);
     setDraw(false);
     setWinner("");
     setAIFirstMove(false);
@@ -55,36 +44,12 @@ function App() {
 
   return (
     <div className="App">
-      <h1 className="header">Tic Tac Toe!</h1>
-      {!player ? (
-        <div className="player-choice">
-          <span id="x" onClick={handlePlayer}>
-            X
-          </span>{" "}
-          or{" "}
-          <span id="o" onClick={handlePlayer}>
-            O
-          </span>
-          ?
-        </div>
-      ) : (
-        ""
-      )}
+      <TicTacToe />
+      {!player ? <ChooseXorO props={{ setPlayer, setAI }} /> : ""}
       {!startGame ? (
-        <div className="input-div">
-          <p className="what-is-name">What is your name?</p>
-          <form>
-            <input
-              type="text"
-              value={playerName}
-              onChange={(e) => setPlayerName(e.target.value)}
-              className="input-style"
-            />
-            <button onClick={handleStartGame} id="start">
-              Start Game
-            </button>
-          </form>
-        </div>
+        <WhatIsNameInputAndStartButton
+          props={{ playerName, setPlayerName, player, setStartGame }}
+        />
       ) : (
         <Gameboard
           props={{
@@ -97,8 +62,8 @@ function App() {
             AI,
             winner,
             setWinner,
-            test,
-            setTest,
+            AIMoveInProgress,
+            setAIMoveInProgress,
             draw,
             setDraw,
             AIFirstMove,
@@ -106,17 +71,8 @@ function App() {
           }}
         />
       )}
-      <div>
-        <button id="restart" type="button" onClick={handleRestart}>
-          Restart Game
-        </button>
-      </div>
-      <div className="first-move-div">
-        <h1 className="first-move">
-          Note: X makes the first move. You must select X or O, and put in your
-          name before you can start the game.
-        </h1>
-      </div>
+      <RestartButton handleRestart={handleRestart} />
+      <Note />
     </div>
   );
 }

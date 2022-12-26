@@ -24,6 +24,7 @@ code {
 .what-is-name {
   text-align: center;
   margin-bottom: -1rem;
+  margin-top: 1rem;
   font-size: 2rem;
   color: palegreen;
 }
@@ -141,11 +142,11 @@ code {
   margin-bottom: 3rem;
 }
 
-.first-move-div {
+.note-div {
   width: 500px;
 }
 
-.first-move {
+.note-text {
   text-align: center;
   color: palevioletred;
 }
