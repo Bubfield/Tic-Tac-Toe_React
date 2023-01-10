@@ -1,11 +1,29 @@
+import {useContext} from 'React';
+
+import {AppContext} from '../state/AppContext';
+
 const UpdateSquaresArrayAndMakeMoves = (
   e,
-  player,
-  squaresOccupied,
-  setAIMoveInProgress,
-  AI,
-  setSquaresOccupied
+  // player,
+  // squaresOccupied,
+  // setAIMoveInProgress,
+  // AI,
+  // setSquaresOccupied
 ) => {
+
+
+  const {
+
+    player,
+    squaresOccupied,
+    setAIMoveInProgress,
+    AI,
+    setSquaresOccupied
+
+  } = useContext(AppContext);
+
+
+
   //player move is made
   let chosenSquare = e.target.id;
   e.target.textContent = player;
@@ -27,12 +45,12 @@ const UpdateSquaresArrayAndMakeMoves = (
     let win = document.querySelector(".win");
     /*makes sure win exists before executing next if statement
     this is to stop error of when pressing the reset button
-    immediately after making a move, the AI still 
+    immediately after making a move, the AI still
     tries to make a move, causing an error
     because it tries to grab win.style.display, but win
     does not exist*/
     if (win) {
-      /*if the Win component's style does not equal flex, this 
+      /*if the Win component's style does not equal flex, this
       means the gameboard is displayed which means the AI can make a move.
       used to stop the AI from making moves if the game is over*/
       if (win.style.display !== "flex") {
@@ -51,20 +69,34 @@ const UpdateSquaresArrayAndMakeMoves = (
 
 const handleClickOnSquare = (
   e,
-  AIFirstMove,
-  AIMoveInProgress,
-  setAIMoveInProgress,
-  player,
-  squaresOccupied,
-  setSquaresOccupied,
-  AI
+  // AIFirstMove,
+  // AIMoveInProgress,
+  // setAIMoveInProgress,
+  // player,
+  // squaresOccupied,
+  // setSquaresOccupied,
+  // AI
 ) => {
-  /*if AI is X, then it gets to make the first move, 
+
+
+  const {
+
+    AIFirstMove,
+    AIMoveInProgress,
+    setAIMoveInProgress,
+    player,
+    squaresOccupied,
+    setSquaresOccupied,
+    AI
+
+  } = useContext(AppContext);
+
+  /*if AI is X, then it gets to make the first move,
     so this prevents the user from making a move until AI has made it*/
   if (AIFirstMove) {
     return;
   }
-  /*if square does not already have text content, 
+  /*if square does not already have text content,
     then the user has made a valid move*/
   let textContent = e.target.textContent;
   if (!textContent) {
@@ -83,4 +115,74 @@ const handleClickOnSquare = (
   }
 };
 
-export { handleClickOnSquare };
+
+const executePlayerMove = (where) => {
+
+  // - who dun it
+  // where did they do it?
+
+  // - look up the current gameboard state
+  // - validate the move location:
+
+  const {player} = useContext(AppContext);
+
+
+  const isValidMove = validateMoveLocation(where);
+  if (!isValidMove) {
+    // - display a message "can't do that!"
+    return false;
+  }
+
+  // do the move:
+  updateBoard(where);
+
+
+  // - determine whether the game is won or tied....
+  const gameState = appState.gameState;
+  if (calcWin()) gameState = 'WIN';
+  else if (calcTie()) gameState = 'TIE';
+
+  setGameState(gameState);
+
+  return isValidMove;
+}
+
+
+const validateMoveLocation = (where) => {
+
+
+  // - return true or false (is a valid location)
+  return true;
+}
+
+const updateBoard = (where) => {
+  // - set the state for adding the new mark on the board...
+}
+
+
+const calcWin = () => {
+  // - is any column, row-vert or diag  all X's or O's
+  return false;
+}
+
+const calcTie = () => {
+  // is the board full?
+  return true;
+}
+
+
+const handleGamePositionClick = (squareID) => {
+
+  let chosenSquare = squareID;
+
+  // - return true if valid move...
+  return executePlayerMove(curPlayer, squareID);
+
+}
+
+
+
+export { handleClickOnSquare, handleGamePositionClick, executePlayerMove };
+
+
+

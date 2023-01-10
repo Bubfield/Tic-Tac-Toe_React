@@ -1,13 +1,29 @@
 function checkIfWinOrDraw(
-  player,
-  setWinner,
-  playerName,
-  squaresOccupied,
-  setDraw,
-  setWin
+  // player,
+  // setWinner,
+  // playerName,
+  // squaresOccupied,
+  // setDraw,
+  // setWin
+  AppState
 ) {
+
+
+
+
+
+  const {
+    player,
+    setWinner,
+    playerName,
+    squaresOccupied,
+    setDraw,
+    setWin
+  } = AppState;
+
+
   function isWinOrDraw(num1, num2, num3) {
-    /*if squares are all occupied by the player or AI, 
+    /*if squares are all occupied by the player or AI,
     and these squares are all equal to each other, this is a win*/
     if (num1 && num2 && num3 && num1 === num2 && num1 === num3) {
       if (num1 === player) {

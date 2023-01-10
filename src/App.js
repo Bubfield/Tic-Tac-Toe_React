@@ -1,12 +1,13 @@
 import { useState } from "react";
 import Gameboard from "./components/Gameboard";
 import Note from "./components/Note";
-import RestartButton from "./components/RestartButton";
+import RestartButtonA from "./components/RestartButton";
 import WhatIsNameInputAndStartButton from "./components/WhatIsNameInputAndStartButton";
 import ChooseXorO from "./components/ChooseXorO";
 import TicTacToe from "./components/TicTacToe";
 
 function App() {
+
   const [player, setPlayer] = useState("");
   const [startGame, setStartGame] = useState(false);
   const [playerName, setPlayerName] = useState("");
